@@ -5,7 +5,7 @@
 CObjectMgr::CObjectMgr()
 {
 	m_pSceneMgr = new CSceneMgr;
-
+	m_fStartTime = (float)timeGetTime() * 0.001f;   //ÃÊ´ÜÀ§·Î ¹Ù²ãÁÜ
 }
 
 
@@ -45,11 +45,16 @@ void CObjectMgr::RenderObjects(Renderer * pRenderer)
 	//								(*iter)->GetObjInfo()->b,
 	//								(*iter)->GetObjInfo()->a);
 	//}
+
+	m_fNowTime = (float)timeGetTime() * 0.001f;   //ÃÊ´ÜÀ§·Î ¹Ù²ãÁÜ
+
+	m_pSceneMgr->CheckCollsion();
 	CObj** pObjList = m_pSceneMgr->GetObjArray();
 	int	iObjListCnt = m_pSceneMgr->GetObjCnt();
 	for (int i = 0; i < iObjListCnt; ++i)
 	{
-		pObjList[i]->Update(0.5f);
+		//pObjList[i]->SetCollision(false);
+		pObjList[i]->Update(m_fNowTime - m_fStartTime);
 		pRenderer->DrawSolidRect(pObjList[i]->GetObjInfo()->x,
 								pObjList[i]->GetObjInfo()->y,
 								pObjList[i]->GetObjInfo()->z,
@@ -59,4 +64,6 @@ void CObjectMgr::RenderObjects(Renderer * pRenderer)
 								pObjList[i]->GetObjInfo()->b,
 								pObjList[i]->GetObjInfo()->a);
 	}
+
+	m_fStartTime = m_fNowTime;
 }

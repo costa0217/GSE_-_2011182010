@@ -22,10 +22,7 @@
     <Filter Include="소스 파일\0. Mgr">
       <UniqueIdentifier>{03115b8c-953e-400e-bcc8-d84caa1fc1eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\0. Mgr\-0. ObjMgr">
-      <UniqueIdentifier>{377c92e3-5a6b-45e2-97a2-323fcdf96bd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\0. Mgr\-1. SceneMgr">
+    <Filter Include="소스 파일\0. Mgr\-0. SceneMgr">
       <UniqueIdentifier>{7eba609f-67eb-4ad8-85be-275055cba989}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -45,11 +42,8 @@
     <ClInclude Include="CObj.h">
       <Filter>소스 파일\1. Object</Filter>
     </ClInclude>
-    <ClInclude Include="CObjectMgr.h">
-      <Filter>소스 파일\0. Mgr\-0. ObjMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_project\SimpleGame\CSceneMgr.h">
-      <Filter>소스 파일\0. Mgr\-1. SceneMgr</Filter>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>소스 파일\0. Mgr\-0. SceneMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,11 +59,8 @@
     <ClCompile Include="CObj.cpp">
       <Filter>소스 파일\1. Object</Filter>
     </ClCompile>
-    <ClCompile Include="CObjectMgr.cpp">
-      <Filter>소스 파일\0. Mgr\-0. ObjMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_project\SimpleGame\CSceneMgr.cpp">
-      <Filter>소스 파일\0. Mgr\-1. SceneMgr</Filter>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>소스 파일\0. Mgr\-0. SceneMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

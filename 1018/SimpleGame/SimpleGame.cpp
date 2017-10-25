@@ -14,10 +14,10 @@ but WITHOUT ANY WARRANTY.
 #include "Dependencies\freeglut.h"
 
 #include "Renderer.h"
-#include "CObjectMgr.h"
+#include "CSceneMgr.h"
 
 Renderer *g_Renderer = NULL;
-CObjectMgr*	g_ObjManager = NULL;
+CSceneMgr*	g_SceneManager = NULL;
 
 void RenderScene(void)
 {
@@ -25,8 +25,7 @@ void RenderScene(void)
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 
 	// Renderer Test
-	//g_Renderer->DrawSolidRect(0, 0, 0, 4, 1, 0, 1, 1);
-	g_ObjManager->RenderObjects(g_Renderer);
+	g_SceneManager->RenderObjects(g_Renderer);
 
 	glutSwapBuffers();
 }
@@ -42,7 +41,7 @@ void MouseInput(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
 		//(rand()%254+ 1)/255.f
-		g_ObjManager->pushObject(new CObj(x - 500 * 0.5f, 500 * 0.5f - y, 0, 5, 1, 1, 1, 1));
+		g_SceneManager->pushObject(new CObj(x - 500 * 0.5f, 500 * 0.5f - y, 0, 20, 1, 1, 1, 1));
 	}
 }
 
@@ -84,7 +83,7 @@ int main(int argc, char **argv)
 	{
 		std::cout << "Renderer could not be initialized.. \n";
 	}
-	g_ObjManager = new CObjectMgr();
+	g_SceneManager = new CSceneMgr();
 
 	//g_ObjManager->pushObject(new CObj(100, 100, 0, 2, 1, 0, 0, 1));
 	//g_ObjManager->pushObject(new CObj(100, -100, 0, 4, 1, 1, 0, 1));
@@ -99,7 +98,7 @@ int main(int argc, char **argv)
 	glutMainLoop();
 
 	delete g_Renderer;
-	delete g_ObjManager;
+	delete g_SceneManager;
 
     return 0;
 }

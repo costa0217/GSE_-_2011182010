@@ -5,11 +5,6 @@ struct Vector {
 	float x; float y;
 };
 
-struct ObjInfo {
-	float x; float y; float z;
-	float size;
-	float r; float g; float b; float a;
-};
 class CObj
 {
 public:
@@ -18,6 +13,9 @@ public:
 	~CObj();
 public:
 	ObjInfo*	GetObjInfo() { return &m_tObjInfo; }
+	void		SetCollision(bool bColl) { m_bColl = bColl; 
+	m_tObjInfo.r = 1.f;	m_tObjInfo.g = 0.f;	m_tObjInfo.b = 0.f;	m_tObjInfo.a = 1.f;
+	}
 
 public:
 	int Update(float fTimeDelta);
@@ -27,5 +25,9 @@ private:
 
 	Vector	m_tDir;
 	float	m_fSpeed;
+	bool	m_bColl{ false };
+
+	float	m_fLifeTime{ 0.f };
+	bool	m_bLife{ true };
 };
 

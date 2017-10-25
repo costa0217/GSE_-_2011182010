@@ -155,17 +155,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_project\SimpleGame\CSceneMgr.h" />
+    <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CObj.h" />
-    <ClInclude Include="CObjectMgr.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_project\SimpleGame\CSceneMgr.cpp" />
+    <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CObj.cpp" />
-    <ClCompile Include="CObjectMgr.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
     <ClCompile Include="stdafx.cpp">
