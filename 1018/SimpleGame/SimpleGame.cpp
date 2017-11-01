@@ -15,6 +15,8 @@ but WITHOUT ANY WARRANTY.
 
 #include "Renderer.h"
 #include "CSceneMgr.h"
+#include "CCharacter.h"
+#include "CBuilding.h"
 
 Renderer *g_Renderer = NULL;
 CSceneMgr*	g_SceneManager = NULL;
@@ -41,7 +43,7 @@ void MouseInput(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
 		//(rand()%254+ 1)/255.f
-		g_SceneManager->pushObject(new CObj(x - 500 * 0.5f, 500 * 0.5f - y, 0, 20, 1, 1, 1, 1));
+		g_SceneManager->pushObject(OBJ_CHARACTER, new CCharacter(0, x - 500 * 0.5f, 500 * 0.5f - y, 0));
 	}
 }
 
@@ -88,6 +90,7 @@ int main(int argc, char **argv)
 	//g_ObjManager->pushObject(new CObj(100, 100, 0, 2, 1, 0, 0, 1));
 	//g_ObjManager->pushObject(new CObj(100, -100, 0, 4, 1, 1, 0, 1));
 	//g_ObjManager->pushObject(new CObj(-100, -100, 0, 6, 1, 1, 1, 1));
+	g_SceneManager->pushObject(OBJ_BULDING, new CBuilding(1, 0, 0, 0));
 
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);

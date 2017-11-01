@@ -25,6 +25,18 @@
     <Filter Include="소스 파일\0. Mgr\-0. SceneMgr">
       <UniqueIdentifier>{7eba609f-67eb-4ad8-85be-275055cba989}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\1. Object\-0. Character">
+      <UniqueIdentifier>{1d55830c-46fa-4f8f-a49b-c41a1079f447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1. Object\-1. Building">
+      <UniqueIdentifier>{6447fded-547d-4cf0-9670-c6cad102d908}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1. Object\-2. Bullet">
+      <UniqueIdentifier>{db1814ba-ef7d-4035-89db-33421f101f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1. Object\-3. Arrow">
+      <UniqueIdentifier>{09d1f8c9-2f32-402e-89d4-5824bbab5daf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -45,6 +57,15 @@
     <ClInclude Include="CSceneMgr.h">
       <Filter>소스 파일\0. Mgr\-0. SceneMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CCharacter.h">
+      <Filter>소스 파일\1. Object\-0. Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBuilding.h">
+      <Filter>소스 파일\1. Object\-1. Building</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBullet.h">
+      <Filter>소스 파일\1. Object\-2. Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -61,6 +82,15 @@
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>소스 파일\0. Mgr\-0. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CCharacter.cpp">
+      <Filter>소스 파일\1. Object\-0. Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBuilding.cpp">
+      <Filter>소스 파일\1. Object\-1. Building</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBullet.cpp">
+      <Filter>소스 파일\1. Object\-2. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
