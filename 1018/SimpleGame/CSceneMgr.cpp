@@ -89,7 +89,7 @@ void CSceneMgr::CheckCollisionCharToBullet()
 		{
 			ObjInfo* pCharacter = m_ObjArray[OBJ_CHARACTER][i]->GetObjInfo();
 			ObjInfo* pBullet = m_ObjArray[OBJ_BULLET][j]->GetObjInfo();
-
+			///add
 
 			if (pCharacter->x - pCharacter->size * 0.5f	< pBullet->x + pBullet->size * 0.5f &&
 				pCharacter->y - pCharacter->size * 0.5f	< pBullet->y + pBullet->size * 0.5f &&
