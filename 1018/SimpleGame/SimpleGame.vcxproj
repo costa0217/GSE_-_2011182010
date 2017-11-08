@@ -159,9 +159,9 @@
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBuilding.h" />
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBullet.h" />
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CCharacter.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CObj.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CSceneMgr.h" />
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\LoadPng.h" />
-    <ClInclude Include="CSceneMgr.h" />
-    <ClInclude Include="CObj.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -171,9 +171,9 @@
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBuilding.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CBullet.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CCharacter.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CObj.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CSceneMgr.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\LoadPng.cpp" />
-    <ClCompile Include="CSceneMgr.cpp" />
-    <ClCompile Include="CObj.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
     <ClCompile Include="stdafx.cpp">
