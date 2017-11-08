@@ -1,23 +1,22 @@
 #include "stdafx.h"
-#include "CBullet.h"
+#include "CArrow.h"
 
 
-CBullet::CBullet()
+CArrow::CArrow()
 {
 }
 
-
-CBullet::~CBullet()
-{
-}
-
-
-
-CBullet::CBullet(int eType, float fX, float fY, float fZ)
+CArrow::CArrow(int eType, float fX, float fY, float fZ)
 	: CObj(eType, fX, fY, fZ)
 {
 }
-int CBullet::Update(float fTimeDelta)
+
+
+CArrow::~CArrow()
+{
+}
+
+int CArrow::Update(float fTimeDelta)
 {
 	if (m_bColl)
 		return 1;
@@ -27,5 +26,6 @@ int CBullet::Update(float fTimeDelta)
 
 	m_tObjInfo.x += m_tDir.x * m_fSpeed * fTimeDelta;
 	m_tObjInfo.y += m_tDir.y * m_fSpeed * fTimeDelta;
+
 	return 0;
 }

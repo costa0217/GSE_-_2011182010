@@ -2,7 +2,7 @@
 #include "Renderer.h"
 
 #include "CObj.h"
-#define MAX_OBJECTS_COUNT 10
+#define MAX_OBJECTS_COUNT 50
 
 enum OBJ_TYPE
 {
@@ -26,18 +26,27 @@ private:
 	float	m_fStartTime{ 0.f };
 	float	m_fNowTime{ 0.f };
 
+	Renderer *m_pRenderer{ nullptr };
+	GLuint m_imageNum[OBJ_END];
+
 public:
+	void	Initialize();
 	void	RenderObjects(Renderer* pRenderer);
 
 public:
-	void	pushObject(OBJ_TYPE eType, CObj* pObject);
+	void	pushObject(OBJ_TYPE eType, CObj* pObject, int nObjNum = -1);
 	void	CheckCollsion();
 	void	CheckCollisionCharToBuilding();
 	void	CheckCollisionCharToBullet();
+	void	CheckCollisionBuildingToArrow();
+	void	CheckCollisionCharToArrow();
 
 public:
 	CObj**	GetObjArray(OBJ_TYPE eType) { return m_ObjArray[eType]; }
 	int		GetObjCnt(OBJ_TYPE eType) { return m_iObjCnt[eType]; }
+
+public:
+	void	SetRenderer(Renderer* pRenderer) { m_pRenderer = pRenderer; }
 
 };
 

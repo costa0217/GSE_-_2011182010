@@ -86,6 +86,8 @@ int main(int argc, char **argv)
 		std::cout << "Renderer could not be initialized.. \n";
 	}
 	g_SceneManager = new CSceneMgr();
+	g_SceneManager->SetRenderer(g_Renderer);
+	g_SceneManager->Initialize();
 
 	//g_ObjManager->pushObject(new CObj(100, 100, 0, 2, 1, 0, 0, 1));
 	//g_ObjManager->pushObject(new CObj(100, -100, 0, 4, 1, 1, 0, 1));

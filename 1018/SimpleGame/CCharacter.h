@@ -11,5 +11,10 @@ public:
 
 public:
 	virtual int Update(float fTimeDelta);
+
+private:
+	float	m_fArrowCreateAccTime{ 0.f };
+
+
 };
 

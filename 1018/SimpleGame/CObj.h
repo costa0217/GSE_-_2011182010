@@ -1,5 +1,6 @@
 #pragma once
 
+
 struct Vector {
 
 	float x; float y;
@@ -19,6 +20,9 @@ public:
 	int			GetLifePoint() { return m_iLifePoint; }
 	void		SetLifePoint(int iLife) { m_iLifePoint = iLife; }
 
+	void		SetObjNum(int n) { m_iObjNum = n; }
+	int			GetObjNum() { return m_iObjNum; }
+
 	void		SetColor(float fR, float fG, float fB) {
 		m_tObjInfo.r = fR; m_tObjInfo.g = fG; m_tObjInfo.b = fB;
 	}
@@ -37,6 +41,10 @@ protected:
 	float	m_fLifeTime{ 0.f };
 	bool	m_bLife{ true };
 	int		m_iLifePoint{ 0 };
+
+	int		m_iObjNum{ -1 };
+
+
 
 public:
 	void	SetSceneMgr(CSceneMgr* pSceneMgr) { m_pSceneMgr = pSceneMgr; }

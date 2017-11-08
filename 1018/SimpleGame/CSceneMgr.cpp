@@ -12,7 +12,6 @@ CSceneMgr::CSceneMgr()
 	}
 }
 
-
 CSceneMgr::~CSceneMgr()
 {
 	for (int i = 0; i < OBJ_END; ++i)
@@ -25,12 +24,23 @@ CSceneMgr::~CSceneMgr()
 	}
 }
 
-void CSceneMgr::pushObject(OBJ_TYPE eType, CObj * pObject)
+void CSceneMgr::pushObject(OBJ_TYPE eType, CObj * pObject, int nObjNum)
 {
 	if (m_iObjCnt[eType] == MAX_OBJECTS_COUNT) return;
 
+
 	m_ObjArray[eType][m_iObjCnt[eType]] = pObject;
 	m_ObjArray[eType][m_iObjCnt[eType]]->SetSceneMgr(this);
+
+	if (-1 != nObjNum)
+	{
+		m_ObjArray[eType][m_iObjCnt[eType]]->SetObjNum(nObjNum);
+	}
+	else
+	{
+		m_ObjArray[eType][m_iObjCnt[eType]]->SetObjNum(m_iObjCnt[eType]);
+	}
+
 	++m_iObjCnt[eType];
 }
 
@@ -103,6 +113,61 @@ void CSceneMgr::CheckCollisionCharToBullet()
 		}
 	}
 }
+void CSceneMgr::CheckCollisionBuildingToArrow()
+{
+
+	for (int i = 0; i < m_iObjCnt[OBJ_BULDING]; ++i)
+	{
+		m_ObjArray[OBJ_BULDING][i]->SetColor(1.f, 1.f, 0.f);
+		for (int j = 0; j < m_iObjCnt[OBJ_ARROW]; ++j)
+		{
+			ObjInfo* pBuilding = m_ObjArray[OBJ_BULDING][i]->GetObjInfo();
+			ObjInfo* pArrow = m_ObjArray[OBJ_ARROW][j]->GetObjInfo();
+
+
+			if (pBuilding->x - pBuilding->size * 0.5f	< pArrow->x + pArrow->size * 0.5f &&
+				pBuilding->y - pBuilding->size * 0.5f	< pArrow->y + pArrow->size * 0.5f &&
+				pBuilding->x + pBuilding->size * 0.5f	> pArrow->x - pArrow->size * 0.5f &&
+				pBuilding->y + pBuilding->size * 0.5f	> pArrow->y - pArrow->size * 0.5f)
+			{
+				m_ObjArray[OBJ_BULDING][i]->SetLifePoint(m_ObjArray[OBJ_BULDING][i]->GetLifePoint() - m_ObjArray[OBJ_ARROW][j]->GetLifePoint());
+				m_ObjArray[OBJ_BULDING][i]->SetColor(1.f, 0.f, 0.f);
+				m_ObjArray[OBJ_ARROW][j]->SetCollision(true);
+			}
+		}
+	}
+}
+void CSceneMgr::CheckCollisionCharToArrow()
+{
+	for (int i = 0; i < m_iObjCnt[OBJ_CHARACTER]; ++i)
+	{
+		for (int j = 0; j < m_iObjCnt[OBJ_ARROW]; ++j)
+		{
+			if (m_ObjArray[OBJ_CHARACTER][i]->GetObjNum() == m_ObjArray[OBJ_ARROW][j]->GetObjNum()) continue;
+
+			ObjInfo* pCharacter = m_ObjArray[OBJ_CHARACTER][i]->GetObjInfo();
+			ObjInfo* pArrow = m_ObjArray[OBJ_ARROW][j]->GetObjInfo();
+
+
+			if (pCharacter->x - pCharacter->size * 0.5f	< pArrow->x + pArrow->size * 0.5f &&
+				pCharacter->y - pCharacter->size * 0.5f	< pArrow->y + pArrow->size * 0.5f &&
+				pCharacter->x + pCharacter->size * 0.5f	> pArrow->x - pArrow->size * 0.5f &&
+				pCharacter->y + pCharacter->size * 0.5f	> pArrow->y - pArrow->size * 0.5f)
+			{
+				m_ObjArray[OBJ_CHARACTER][i]->SetLifePoint(m_ObjArray[OBJ_CHARACTER][i]->GetLifePoint() - m_ObjArray[OBJ_ARROW][j]->GetLifePoint());
+				m_ObjArray[OBJ_ARROW][j]->SetCollision(true);
+			}
+		}
+	}
+	
+}
+void CSceneMgr::Initialize()
+{
+	m_imageNum[OBJ_BULDING] = m_pRenderer->CreatePngTexture("./Textures/Building.png");
+	m_imageNum[OBJ_CHARACTER] = m_pRenderer->CreatePngTexture("./Textures/Char.png");
+	m_imageNum[OBJ_BULLET] = m_pRenderer->CreatePngTexture("./Textures/Bullet.png");
+	m_imageNum[OBJ_ARROW] = m_pRenderer->CreatePngTexture("./Textures/Arrow.png");
+}
 void CSceneMgr::RenderObjects(Renderer * pRenderer)
 {
 	m_fNowTime = (float)timeGetTime() * 0.001f;   //√ ¥‹¿ß∑Œ πŸ≤„¡‹
@@ -110,6 +175,8 @@ void CSceneMgr::RenderObjects(Renderer * pRenderer)
 	//CheckCollsion();
 	CheckCollisionCharToBuilding();
 	CheckCollisionCharToBullet();
+	CheckCollisionBuildingToArrow();
+	CheckCollisionCharToArrow();
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (int j = 0; j < m_iObjCnt[i]; )
@@ -136,14 +203,24 @@ void CSceneMgr::RenderObjects(Renderer * pRenderer)
 	{
 		for (int j = 0; j < m_iObjCnt[i]; ++j)
 		{
-			pRenderer->DrawSolidRect(m_ObjArray[i][j]->GetObjInfo()->x,
+			/*pRenderer->DrawSolidRect(m_ObjArray[i][j]->GetObjInfo()->x,
 				m_ObjArray[i][j]->GetObjInfo()->y,
 				m_ObjArray[i][j]->GetObjInfo()->z,
 				m_ObjArray[i][j]->GetObjInfo()->size,
 				m_ObjArray[i][j]->GetObjInfo()->r,
 				m_ObjArray[i][j]->GetObjInfo()->g,
 				m_ObjArray[i][j]->GetObjInfo()->b,
-				m_ObjArray[i][j]->GetObjInfo()->a);
+				m_ObjArray[i][j]->GetObjInfo()->a);*/
+
+			m_pRenderer->DrawTexturedRect(m_ObjArray[i][j]->GetObjInfo()->x,
+				m_ObjArray[i][j]->GetObjInfo()->y,
+				m_ObjArray[i][j]->GetObjInfo()->z,
+				m_ObjArray[i][j]->GetObjInfo()->size,
+				m_ObjArray[i][j]->GetObjInfo()->r,
+				m_ObjArray[i][j]->GetObjInfo()->g,
+				m_ObjArray[i][j]->GetObjInfo()->b,
+				m_ObjArray[i][j]->GetObjInfo()->a,
+				m_imageNum[i]);
 		}
 	}
 
