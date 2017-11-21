@@ -21,10 +21,14 @@ but WITHOUT ANY WARRANTY.
 Renderer *g_Renderer = NULL;
 CSceneMgr*	g_SceneManager = NULL;
 
+DWORD dwTime = 0;
+DWORD dwPreTime = 0;
+float fTime = 33.f;	//한프레임 시간(밀리세컨드 1초 = 1000밀리초)
 void RenderScene(void)
 {
+	float fDivide = 1 / 255.f;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
+	glClearColor(181 * fDivide, 214 * fDivide, 146 * fDivide, 1.0f);
 
 	// Renderer Test
 	g_SceneManager->RenderObjects(g_Renderer);
@@ -42,8 +46,8 @@ void MouseInput(int button, int state, int x, int y)
 	RenderScene();
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
-		//(rand()%254+ 1)/255.f
-		g_SceneManager->pushObject(OBJ_CHARACTER, new CCharacter(0, x - 500 * 0.5f, 500 * 0.5f - y, 0));
+		g_SceneManager->CreateCharacter(x - WINCX * 0.5f, WINCY * 0.5f - y);
+		//g_SceneManager->pushObject(OBJ_CHARACTER, x - WINCX * 0.5f, WINCY * 0.5f - y, 0);
 	}
 }
 
@@ -56,7 +60,19 @@ void SpecialKeyInput(int key, int x, int y)
 {
 	RenderScene();
 }
+GLvoid TimerFunction(int value)
+{
+	// 메인프레임 업데이트 구문
+	dwTime = timeGetTime() * 0.001f;
+	if (-1 == g_SceneManager->Update(fTime * 0.001f))
+	//if (-1 == g_SceneManager->Update(float(dwTime - dwPreTime)))
+		delete g_SceneManager;
 
+	glutTimerFunc(fTime, TimerFunction, 1); // 타이머 함수 설정 
+	glutPostRedisplay();
+
+	dwPreTime = dwTime;
+}
 int main(int argc, char **argv)
 {
 	// Initialize GL things
@@ -89,12 +105,14 @@ int main(int argc, char **argv)
 	g_SceneManager->SetRenderer(g_Renderer);
 	g_SceneManager->Initialize();
 
-	//g_ObjManager->pushObject(new CObj(100, 100, 0, 2, 1, 0, 0, 1));
-	//g_ObjManager->pushObject(new CObj(100, -100, 0, 4, 1, 1, 0, 1));
-	//g_ObjManager->pushObject(new CObj(-100, -100, 0, 6, 1, 1, 1, 1));
-	g_SceneManager->pushObject(OBJ_BULDING, new CBuilding(1, 0, 0, 0));
+
+	//g_SceneManager->pushObject(OBJ_BULDING, new CBuilding(1, 150, -300, 0));
+	//g_SceneManager->pushObject(OBJ_BULDING, new CBuilding(1, 0, -320, 0));
+	//g_SceneManager->pushObject(OBJ_BULDING, new CBuilding(1, -150, -300, 0));
 
 	glutDisplayFunc(RenderScene);
+	glutTimerFunc(fTime, TimerFunction, 1); // 타이머 함수 설정 
+
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);
 	glutMouseFunc(MouseInput);

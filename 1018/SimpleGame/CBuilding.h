@@ -5,7 +5,7 @@ class CBuilding :
 {
 public:
 	CBuilding();
-	CBuilding(int eType, float fX, float fY, float fZ);
+	CBuilding(int iTeamNum, float fX, float fY, float fZ);
 	~CBuilding();
 
 public:

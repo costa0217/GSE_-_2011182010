@@ -5,7 +5,7 @@ class CArrow :
 {
 public:
 	CArrow();
-	CArrow(int eType, float fX, float fY, float fZ);
+	CArrow(int iTeamNum, float fX, float fY, float fZ);
 	~CArrow();
 
 

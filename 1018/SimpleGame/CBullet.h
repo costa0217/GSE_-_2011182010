@@ -5,7 +5,7 @@ class CBullet :
 {
 public:
 	CBullet();
-	CBullet(int eType, float fX, float fY, float fZ);
+	CBullet(int iTeamNum, float fX, float fY, float fZ);
 	~CBullet();
 
 public:

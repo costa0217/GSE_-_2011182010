@@ -4,15 +4,6 @@
 #include "CObj.h"
 #define MAX_OBJECTS_COUNT 50
 
-enum OBJ_TYPE
-{
-	OBJ_BULDING,
-	OBJ_CHARACTER,
-	OBJ_BULLET,
-	OBJ_ARROW,
-	OBJ_END
-};
-
 class CSceneMgr
 {
 public:
@@ -20,30 +11,32 @@ public:
 	~CSceneMgr();
 
 private:
-	CObj*	m_ObjArray[OBJ_END][MAX_OBJECTS_COUNT];
-	int		m_iObjCnt[OBJ_END];
+	list<CObj*>		m_ObjList[OBJ_END];
 
-	float	m_fStartTime{ 0.f };
-	float	m_fNowTime{ 0.f };
+	float	m_fAccEnemySummonTime{ 0.f };
+	float	m_fAccSummonTime{ 0.f };
+	bool	m_bSummonAble{ true };
 
-	Renderer *m_pRenderer{ nullptr };
-	GLuint m_imageNum[OBJ_END];
+	Renderer*	m_pRenderer{ nullptr };
+	GLuint		m_imageNum[IMAGE_END];
 
 public:
 	void	Initialize();
+	int		Update(float fDeltaTime);
 	void	RenderObjects(Renderer* pRenderer);
 
 public:
-	void	pushObject(OBJ_TYPE eType, CObj* pObject, int nObjNum = -1);
+	//void	pushObject(OBJ_TYPE eType, CObj* pObject, int nObjNum = -1);
+	void	pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNum, CObj* pParent = nullptr);
+	void	CreateCharacter(float fPosX, float fPosY);
+	void	CreateEnemy(float fTimeDelta);
+
+public:
 	void	CheckCollsion();
 	void	CheckCollisionCharToBuilding();
 	void	CheckCollisionCharToBullet();
 	void	CheckCollisionBuildingToArrow();
 	void	CheckCollisionCharToArrow();
-
-public:
-	CObj**	GetObjArray(OBJ_TYPE eType) { return m_ObjArray[eType]; }
-	int		GetObjCnt(OBJ_TYPE eType) { return m_iObjCnt[eType]; }
 
 public:
 	void	SetRenderer(Renderer* pRenderer) { m_pRenderer = pRenderer; }

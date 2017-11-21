@@ -6,8 +6,8 @@ CArrow::CArrow()
 {
 }
 
-CArrow::CArrow(int eType, float fX, float fY, float fZ)
-	: CObj(eType, fX, fY, fZ)
+CArrow::CArrow(int iTeamNum, float fX, float fY, float fZ)
+	: CObj(iTeamNum, fX, fY, fZ)
 {
 }
 

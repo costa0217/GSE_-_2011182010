@@ -13,8 +13,8 @@ CBullet::~CBullet()
 
 
 
-CBullet::CBullet(int eType, float fX, float fY, float fZ)
-	: CObj(eType, fX, fY, fZ)
+CBullet::CBullet(int iTeamNum, float fX, float fY, float fZ)
+	: CObj(iTeamNum, fX, fY, fZ)
 {
 }
 int CBullet::Update(float fTimeDelta)

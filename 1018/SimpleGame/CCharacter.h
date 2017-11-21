@@ -6,7 +6,7 @@ class CCharacter :
 {
 public:
 	CCharacter(float fX, float fY, float fZ, float fSize, float fR, float fG, float fB, float fA);
-	CCharacter(int eType, float fX, float fY, float fZ);
+	CCharacter(int iTeamNum, float fX, float fY, float fZ);
 	virtual ~CCharacter();
 
 public:

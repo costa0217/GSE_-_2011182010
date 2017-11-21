@@ -7,8 +7,8 @@ CBuilding::CBuilding()
 {
 }
 
-CBuilding::CBuilding(int eType, float fX, float fY, float fZ)
-	: CObj(eType, fX, fY, fZ)
+CBuilding::CBuilding(int iTeamNum, float fX, float fY, float fZ)
+	: CObj(iTeamNum, fX, fY, fZ)
 {
 }
 
@@ -25,10 +25,10 @@ int CBuilding::Update(float fTimeDelta)
 
 	
 	m_fBulletCreateAccTime += fTimeDelta;
-	if(m_fBulletCreateAccTime >0.5f)
+	if(m_fBulletCreateAccTime > BULLET_CREATE_TIME)
 	{
 		m_fBulletCreateAccTime = 0.f;
-		m_pSceneMgr->pushObject(OBJ_BULLET, new CBullet(2, 0, 0, 0));
+		m_pSceneMgr->pushObject(OBJ_BULLET, m_tObjInfo.x, m_tObjInfo.y, m_iTeamNum, this);
 	}
 
 	return 0;
