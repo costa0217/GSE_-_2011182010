@@ -27,6 +27,7 @@ CObj::CObj(float fX, float fY, float fZ, float fSize, float fR, float fG, float 
 }
 CObj::CObj(int iTeamNum, float fX, float fY, float fZ)
 {
+	ZeroMemory(&m_tObjInfo, sizeof(m_tObjInfo));
 	//m_eType = eType;
 	m_tObjInfo.x = fX;	m_tObjInfo.y = fY;	m_tObjInfo.z = fZ;
 	m_tDir.x = float(rand() % 100 - 50);
@@ -110,4 +111,8 @@ CObj::~CObj()
 int CObj::Update(float fTimeDelta)
 {
 	return 0;
+}
+
+void CObj::Render(Renderer * pRenderer)
+{
 }

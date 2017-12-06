@@ -33,3 +33,31 @@ int CBuilding::Update(float fTimeDelta)
 
 	return 0;
 }
+
+void CBuilding::Render(Renderer * pRenderer)
+{
+	GLint imageNum = -1;
+	float fRGB[3];
+	if (m_iTeamNum == 0)
+	{
+		imageNum = m_pSceneMgr->GetImageNum()[IMAGE_BUILDING];
+		fRGB[0] = 1.f; fRGB[1] = 0.f; fRGB[2] = 0.f;
+	}
+	else
+	{
+		imageNum = m_pSceneMgr->GetImageNum()[IMAGE_ENEMY_BUILDING];
+		fRGB[0] = 0.f; fRGB[1] = 0.f; fRGB[2] = 1.f;
+	}
+
+	pRenderer->DrawTexturedRect(m_tObjInfo.x, m_tObjInfo.y,	m_tObjInfo.z,
+		m_tObjInfo.size,
+		m_tObjInfo.r, m_tObjInfo.g, m_tObjInfo.b, m_tObjInfo.a,
+		imageNum,
+		m_tObjInfo.lvType * 0.1f);
+
+	pRenderer->DrawSolidRectGauge(m_tObjInfo.x, m_tObjInfo.y + m_tObjInfo.size * 0.6f, m_tObjInfo.z,
+		m_tObjInfo.size * 0.8f, m_tObjInfo.size * 0.08f,
+		fRGB[0], fRGB[1], fRGB[2], 1.f,
+		GetLifeGauge(),
+		m_tObjInfo.lvType * 0.1f);
+}

@@ -11,4 +11,5 @@ public:
 
 public:
 	virtual int Update(float fTimeDelta);
+	virtual void Render(Renderer* pRenderer);
 };

@@ -163,7 +163,7 @@
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CSceneMgr.h" />
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Define.h" />
     <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\LoadPng.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -175,7 +175,7 @@
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CObj.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\CSceneMgr.cpp" />
     <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\LoadPng.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Renderer.cpp" />
     <ClCompile Include="SimpleGame.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -187,6 +187,14 @@
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRect.fs" />
     <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRect.vs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectGauge.fs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectGauge.vs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectWithTexture.fs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectWithTexture.vs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectWithTextureSeq.fs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectWithTextureSeq.vs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectXY.fs" />
+    <None Include="..\..\..\..\..\..\..\0. JH%27s Folder\Study\17-2\GameSoftware\GSE_2_-_2011182010\1018\SimpleGame\Shaders\SolidRectXY.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

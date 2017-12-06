@@ -22,12 +22,6 @@ using namespace std;
 #define WINCY 800
 
 
-struct ObjInfo {
-	float x; float y; float z;
-	float size;
-	float r; float g; float b; float a;
-};
-
 enum OBJ_TYPE
 {
 	OBJ_BULDING,
@@ -41,5 +35,26 @@ enum IMAGE_TYPE
 {
 	IMAGE_BUILDING,
 	IMAGE_ENEMY_BUILDING,
+	IMAGE_ENEMY_CHAR_MOVE,
+	IMAGE_CHAR_MOVE,
+	IMAGE_BULLET_PARTICLE,
+	IMAGE_BACKGROUND,
+	
 	IMAGE_END,
+};
+
+enum RENDER_LEVEL_TYPE
+{
+	LEVEL_GOD,
+	LEVEL_SKY,
+	LEVEL_GROUND,
+	LEVEL_UNDERGROUND,
+	LEVEL_END
+};
+
+struct ObjInfo {
+	float x; float y; float z;
+	float size;
+	float r; float g; float b; float a;
+	RENDER_LEVEL_TYPE lvType;
 };

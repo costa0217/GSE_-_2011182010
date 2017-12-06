@@ -10,6 +10,7 @@ public:
 
 public:
 	virtual int Update(float fTimeDelta);
+	virtual void Render(Renderer* pRenderer);
 
 private:
 	float	m_fBulletCreateAccTime{ 0.f };

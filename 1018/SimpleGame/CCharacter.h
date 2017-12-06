@@ -11,9 +11,14 @@ public:
 
 public:
 	virtual int Update(float fTimeDelta);
+	virtual void Render(Renderer* pRenderer);
 
 private:
 	float	m_fArrowCreateAccTime{ 0.f };
+
+	float	m_fFrameTime{ 0.f };
+
+	int		m_iAnimCnt{ 0 };
 
 
 };

@@ -7,7 +7,6 @@
 
 CSceneMgr::CSceneMgr()
 {
-	//m_fStartTime = (float)timeGetTime() * 0.001f;   //ÃÊ´ÜÀ§·Î ¹Ù²ãÁÜ
 }
 
 CSceneMgr::~CSceneMgr()
@@ -22,26 +21,6 @@ CSceneMgr::~CSceneMgr()
 //	}
 }
 
-//void CSceneMgr::pushObject(OBJ_TYPE eType, CObj * pObject, int nObjNum)
-//{
-	//if (m_iObjCnt[eType] == MAX_OBJECTS_COUNT) return;
-
-
-	//m_ObjArray[eType][m_iObjCnt[eType]] = pObject;
-	//m_ObjArray[eType][m_iObjCnt[eType]]->SetSceneMgr(this);
-
-	//if (-1 != nObjNum)
-	//{
-	//	m_ObjArray[eType][m_iObjCnt[eType]]->SetObjNum(nObjNum);
-	//}
-	//else
-	//{
-	//	m_ObjArray[eType][m_iObjCnt[eType]]->SetObjNum(m_iObjCnt[eType]);
-	//}
-
-	//++m_iObjCnt[eType];
-//}
-
 void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNum, CObj * pParent)
 {
 	CObj* pObject = nullptr;
@@ -51,10 +30,13 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 	{
 	case OBJ_BULDING:
 		pObject = new CBuilding(iTeamNum, fPosX, fPosY, 0.f);
-		pObject->SetLifePoint(BUILDING_LIFE);
+		pObject->SetColor(1.f, 1.f, 1.f);
+
 		pObject->SetSceneMgr(this);
+		pObject->SetLifePoint(BUILDING_LIFE, -1);
 		pObject->SetSpeed(BUILDING_SPEED);
 		pObject->SetSize(BUILDING_SIZE);
+		pObject->SetRenderLevel(LEVEL_SKY);
 
 		iLimitCnt = 6;
 		break;
@@ -65,10 +47,11 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 		}else if (iTeamNum == 1) {
 			pObject->SetColor(0.f, 0.f, 1.f);
 		}
-		pObject->SetLifePoint(CHARACTER_LIFE);
 		pObject->SetSceneMgr(this);
+		pObject->SetLifePoint(CHARACTER_LIFE, -1);
 		pObject->SetSpeed(CHARACTER_SPEED);
 		pObject->SetSize(CHARACTER_SIZE);
+		pObject->SetRenderLevel(LEVEL_GROUND);
 
 		iLimitCnt = 10;
 		break;
@@ -80,11 +63,12 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 		else if (iTeamNum == 1) {
 			pObject->SetColor(0.f, 0.f, 1.f);
 		}
-		pObject->SetLifePoint(BULLET_LIFE);
 		pObject->SetSceneMgr(this);
-		pObject->SetSpeed(BULLET_SPEED);
 		pObject->SetParent(pParent);
+		pObject->SetLifePoint(BULLET_LIFE, -1);
+		pObject->SetSpeed(BULLET_SPEED);
 		pObject->SetSize(BULLET_SIZE);
+		pObject->SetRenderLevel(LEVEL_UNDERGROUND);
 
 		iLimitCnt = 30;
 		break;
@@ -96,11 +80,12 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 		else if (iTeamNum == 1) {
 			pObject->SetColor(1.f, 1.f, 0.f);
 		}
-		pObject->SetLifePoint(ARROW_LIFE);
 		pObject->SetSceneMgr(this);
-		pObject->SetSpeed(ARROW_SPEED);
 		pObject->SetParent(pParent);
+		pObject->SetLifePoint(ARROW_LIFE, -1);
+		pObject->SetSpeed(ARROW_SPEED);
 		pObject->SetSize(ARROW_SIZE);
+		pObject->SetRenderLevel(LEVEL_UNDERGROUND);
 
 		iLimitCnt = 100;
 		break;
@@ -114,8 +99,6 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 
 void CSceneMgr::CreateCharacter(float fPosX, float fPosY)
 {
-	//printf("%f, %f\n", fPosX, fPosY);
-
 	if (fPosY > WINCY * -0.5f && fPosY < 0.f)
 	{
 		if (true == m_bSummonAble)
@@ -137,29 +120,6 @@ void CSceneMgr::CreateEnemy(float fTimeDelta)
 	}
 }
 
-void CSceneMgr::CheckCollsion()
-{
-	// Ãæµ¹·ÎÁ÷ ÀÏµý x
-	//for (int i = 0; i < m_iObjCnt; ++i)
-	//{
-	//	for (int j = i; j < m_iObjCnt; ++j)
-	//	{
-	//		if (i == j) continue;
-
-	//		ObjInfo* pRect1 = m_ObjArray[i]->GetObjInfo();
-	//		ObjInfo* pRect2 = m_ObjArray[j]->GetObjInfo();
-
-	//		if (pRect1->x - pRect1->size * 0.5f	< pRect2->x + pRect2->size * 0.5f &&
-	//			pRect1->y - pRect1->size * 0.5f < pRect2->y + pRect2->size * 0.5f &&
-	//			pRect1->x + pRect1->size * 0.5f > pRect2->x - pRect2->size * 0.5f &&
-	//			pRect1->y + pRect1->size * 0.5f > pRect2->y - pRect2->size * 0.5f)
-	//		{
-	//			m_ObjArray[i]->SetCollision(true);
-	//			m_ObjArray[j]->SetCollision(true);
-	//		}
-	//	}
-	//}
-}
 void CSceneMgr::CheckCollisionCharToBuilding()
 {
 	list<CObj*>::iterator B_iter = m_ObjList[OBJ_BULDING].begin();
@@ -235,6 +195,55 @@ void CSceneMgr::CheckCollisionBuildingToArrow()
 			}
 		}
 	}*/
+	list<CObj*>::iterator B_iter = m_ObjList[OBJ_BULDING].begin();
+	list<CObj*>::iterator B_iter_end = m_ObjList[OBJ_BULDING].end();
+	for (; B_iter != B_iter_end; ++B_iter)
+	{
+		list<CObj*>::iterator A_iter = m_ObjList[OBJ_ARROW].begin();
+		list<CObj*>::iterator A_iter_end = m_ObjList[OBJ_ARROW].end();
+		for (; A_iter != A_iter_end; ++A_iter)
+		{
+			if ((*A_iter)->GetTeamNum() == (*B_iter)->GetTeamNum()) continue;
+
+			ObjInfo* pBuilding = (*B_iter)->GetObjInfo();
+			ObjInfo* pArrow = (*A_iter)->GetObjInfo();
+
+			if (pArrow->x - pArrow->size * 0.5f	< pBuilding->x + pBuilding->size * 0.5f &&
+				pArrow->y - pArrow->size * 0.5f	< pBuilding->y + pBuilding->size * 0.5f &&
+				pArrow->x + pArrow->size * 0.5f	> pBuilding->x - pBuilding->size * 0.5f &&
+				pArrow->y + pArrow->size * 0.5f	> pBuilding->y - pBuilding->size * 0.5f)
+			{
+				(*B_iter)->SetLifePoint((*B_iter)->GetLifePoint() - (*A_iter)->GetLifePoint());
+				(*A_iter)->SetCollision(true);
+			}
+		}
+	}
+}
+void CSceneMgr::CheckCollisionBuildingToBullet()
+{
+	list<CObj*>::iterator B_iter = m_ObjList[OBJ_BULDING].begin();
+	list<CObj*>::iterator B_iter_end = m_ObjList[OBJ_BULDING].end();
+	for (; B_iter != B_iter_end; ++B_iter)
+	{
+		list<CObj*>::iterator Bul_iter = m_ObjList[OBJ_ARROW].begin();
+		list<CObj*>::iterator Bul_iter_end = m_ObjList[OBJ_ARROW].end();
+		for (; Bul_iter != Bul_iter_end; ++Bul_iter)
+		{
+			if ((*Bul_iter)->GetTeamNum() == (*B_iter)->GetTeamNum()) continue;
+
+			ObjInfo* pBuilding = (*B_iter)->GetObjInfo();
+			ObjInfo* pBullet = (*Bul_iter)->GetObjInfo();
+
+			if (pBullet->x - pBullet->size * 0.5f	< pBuilding->x + pBuilding->size * 0.5f &&
+				pBullet->y - pBullet->size * 0.5f	< pBuilding->y + pBuilding->size * 0.5f &&
+				pBullet->x + pBullet->size * 0.5f	> pBuilding->x - pBuilding->size * 0.5f &&
+				pBullet->y + pBullet->size * 0.5f	> pBuilding->y - pBuilding->size * 0.5f)
+			{
+				(*B_iter)->SetLifePoint((*B_iter)->GetLifePoint() - (*Bul_iter)->GetLifePoint());
+				(*Bul_iter)->SetCollision(true);
+			}
+		}
+	}
 }
 void CSceneMgr::CheckCollisionCharToArrow()
 {
@@ -266,6 +275,12 @@ void CSceneMgr::Initialize()
 {
 	m_imageNum[IMAGE_BUILDING] = m_pRenderer->CreatePngTexture("./Textures/Building.png");
 	m_imageNum[IMAGE_ENEMY_BUILDING] = m_pRenderer->CreatePngTexture("./Textures/enemy_building.png");
+
+	m_imageNum[IMAGE_ENEMY_CHAR_MOVE] = m_pRenderer->CreatePngTexture("./Textures/Enemy_Move_13.png");
+	m_imageNum[IMAGE_CHAR_MOVE] = m_pRenderer->CreatePngTexture("./Textures/My_Move_5.png");
+	m_imageNum[IMAGE_BULLET_PARTICLE] = m_pRenderer->CreatePngTexture("./Textures/Particle.png");
+
+	m_imageNum[IMAGE_BACKGROUND] = m_pRenderer->CreatePngTexture("./Textures/background.png");
 
 	pushObject(OBJ_BULDING, WINCX * 0.f, WINCY * -0.4f, 0);
 	pushObject(OBJ_BULDING, WINCX * 0.35f, WINCY * -0.35f, 0);
@@ -314,43 +329,25 @@ int CSceneMgr::Update(float fDeltaTime)
 void CSceneMgr::RenderObjects(Renderer * pRenderer)
 {
 	//CheckCollsion();
-	//CheckCollisionBuildingToArrow();
 	CheckCollisionCharToBuilding();
 	CheckCollisionCharToBullet();
 	CheckCollisionCharToArrow();
-	//Update(m_fNowTime - m_fStartTime);
+	CheckCollisionBuildingToArrow();
+	CheckCollisionBuildingToBullet();
+
+	m_pRenderer->DrawTexturedRect(0.f, 0.f, 0.f,
+		WINCY * 0.8f,
+		1.f, 1.f, 1.f, 1.f,
+		m_imageNum[IMAGE_BACKGROUND],
+		0.9f);
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		list<CObj*>::iterator iter = m_ObjList[i].begin();
 		list<CObj*>::iterator iter_end = m_ObjList[i].end();
 		for (; iter != iter_end; ++iter)
 		{
-			if (i != OBJ_BULDING)
-			{
-				pRenderer->DrawSolidRect((*iter)->GetObjInfo()->x,
-					(*iter)->GetObjInfo()->y,
-					(*iter)->GetObjInfo()->z,
-					(*iter)->GetObjInfo()->size,
-					(*iter)->GetObjInfo()->r,
-					(*iter)->GetObjInfo()->g,
-					(*iter)->GetObjInfo()->b,
-					(*iter)->GetObjInfo()->a);
-			}
-			else
-			{
-				GLint imageNum = -1;
-				(*iter)->GetTeamNum() == 0 ? imageNum = m_imageNum[IMAGE_BUILDING] : imageNum = m_imageNum[IMAGE_ENEMY_BUILDING];
-
-				m_pRenderer->DrawTexturedRect((*iter)->GetObjInfo()->x,
-					(*iter)->GetObjInfo()->y,
-					(*iter)->GetObjInfo()->z,
-					(*iter)->GetObjInfo()->size,
-					(*iter)->GetObjInfo()->r,
-					(*iter)->GetObjInfo()->g,
-					(*iter)->GetObjInfo()->b,
-					(*iter)->GetObjInfo()->a,
-					imageNum);
-			}
+			(*iter)->Render(m_pRenderer);
 		}
 	}
 }
