@@ -11,10 +11,23 @@ CCharacter::CCharacter(float fX, float fY, float fZ, float fSize, float fR, floa
 CCharacter::CCharacter(int iTeamNum, float fX, float fY, float fZ)
 	: CObj(iTeamNum, fX, fY, fZ)
 {
+	m_pSound = new Sound;
+	if (iTeamNum == 0)
+	{
+		m_iSoundNum = m_pSound->CreateSound("./Sound/char_haeun.wav");
+	}
+	else
+	{
+		m_iSoundNum = m_pSound->CreateSound("./Sound/enemy_create.wav");
+	}
+		m_pSound->PlaySoundW(m_iSoundNum, false, 1.f);
+
 }
 
 CCharacter::~CCharacter()
 {
+	delete m_pSound;
+	m_pSound = nullptr;
 }
 
 int CCharacter::Update(float fTimeDelta)

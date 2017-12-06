@@ -5,7 +5,7 @@
 #define ENEMY_CHARACTE_CREATE_TIME	5.f
 #define BULLET_CREATE_TIME			3.f
 
-#define BUILDING_SIZE	100.f
+#define BUILDING_SIZE	80.f
 #define CHARACTER_SIZE	50.f
 #define BULLET_SIZE		4.f
 #define ARROW_SIZE		4.f

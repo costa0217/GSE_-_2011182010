@@ -116,7 +116,7 @@ void CSceneMgr::CreateEnemy(float fTimeDelta)
 	if (m_fAccEnemySummonTime > ENEMY_CHARACTE_CREATE_TIME)
 	{
 		m_fAccEnemySummonTime = 0.f;
-		pushObject(OBJ_CHARACTER, float(rand() % WINCX - int(WINCX *0.5f)), float(rand() % int(WINCY *0.5f)), 1);
+		pushObject(OBJ_CHARACTER, float(rand() % WINCX - int(WINCX *0.45f)), float(rand() % int(WINCY *0.45f)), 1);
 	}
 }
 
@@ -283,15 +283,21 @@ void CSceneMgr::Initialize()
 	m_imageNum[IMAGE_BACKGROUND] = m_pRenderer->CreatePngTexture("./Textures/background.png");
 
 	pushObject(OBJ_BULDING, WINCX * 0.f, WINCY * -0.4f, 0);
-	pushObject(OBJ_BULDING, WINCX * 0.35f, WINCY * -0.35f, 0);
-	pushObject(OBJ_BULDING, WINCX * -0.35f, WINCY * -0.35f, 0);
+	pushObject(OBJ_BULDING, WINCX * 0.32f, WINCY * -0.3f, 0);
+	pushObject(OBJ_BULDING, WINCX * -0.32f, WINCY * -0.3f, 0);
 
 	pushObject(OBJ_BULDING, WINCX * 0.f, WINCY * 0.4f, 1);
-	pushObject(OBJ_BULDING, WINCX * 0.35f, WINCY * 0.35f, 1);
-	pushObject(OBJ_BULDING, WINCX * -0.35f, WINCY * 0.35f, 1);
+	pushObject(OBJ_BULDING, WINCX * 0.32f, WINCY * 0.3f, 1);
+	pushObject(OBJ_BULDING, WINCX * -0.32f, WINCY * 0.3f, 1);
+
+	m_pSound = new Sound;
+	m_iSoundNum = m_pSound->CreateSound("./Sound/BGM.wav");
+	m_pSound->PlaySoundW(m_iSoundNum, true, 1.f);
 }
 int CSceneMgr::Update(float fDeltaTime)
 {
+
+
 	if (false == m_bSummonAble)
 	{
 		m_fAccSummonTime += fDeltaTime;
@@ -335,11 +341,15 @@ void CSceneMgr::RenderObjects(Renderer * pRenderer)
 	CheckCollisionBuildingToArrow();
 	CheckCollisionBuildingToBullet();
 
-	m_pRenderer->DrawTexturedRect(0.f, 0.f, 0.f,
-		WINCY * 0.8f,
+	m_pRenderer->DrawTexturedRectXY(0.f, 0.f, 0.f,
+		WINCX,
+		WINCY,
 		1.f, 1.f, 1.f, 1.f,
 		m_imageNum[IMAGE_BACKGROUND],
 		0.9f);
+
+	//m_pRenderer->DrawText(WINCX * -0.45f, WINCY * 0.45f, GLUT_BITMAP_9_BY_15, 1.f, 1.f, 0.f, "Kingdom Royale");
+
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{

@@ -3,6 +3,8 @@
 #include "CSceneMgr.h"
 #include "CBullet.h"
 
+#pragma warning(disable: 4996) 
+
 CBuilding::CBuilding()
 {
 }
@@ -54,6 +56,11 @@ void CBuilding::Render(Renderer * pRenderer)
 		m_tObjInfo.r, m_tObjInfo.g, m_tObjInfo.b, m_tObjInfo.a,
 		imageNum,
 		m_tObjInfo.lvType * 0.1f);
+
+
+	char ctemp[40] = "";
+	char* pchar = itoa(m_iLifePoint, ctemp, 10);
+	pRenderer->DrawText(m_tObjInfo.x, m_tObjInfo.y + m_tObjInfo.size * 0.65f, GLUT_BITMAP_HELVETICA_10, 0.f, 0.f, 0.f, pchar);
 
 	pRenderer->DrawSolidRectGauge(m_tObjInfo.x, m_tObjInfo.y + m_tObjInfo.size * 0.6f, m_tObjInfo.z,
 		m_tObjInfo.size * 0.8f, m_tObjInfo.size * 0.08f,

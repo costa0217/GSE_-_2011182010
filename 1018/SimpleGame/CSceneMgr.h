@@ -2,6 +2,10 @@
 #include "Renderer.h"
 
 #include "CObj.h"
+#include "Sound.h"
+
+
+
 #define MAX_OBJECTS_COUNT 50
 
 class CSceneMgr
@@ -19,6 +23,10 @@ private:
 
 	Renderer*	m_pRenderer{ nullptr };
 	GLuint		m_imageNum[IMAGE_END];
+
+private:
+	Sound*	m_pSound{ nullptr };
+	GLuint	m_iSoundNum;
 
 public:
 	GLuint*	GetImageNum() { return m_imageNum; }

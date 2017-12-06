@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "Sound.h"
 
 class CCharacter :
 	public CObj
@@ -20,6 +21,9 @@ private:
 
 	int		m_iAnimCnt{ 0 };
 
+private:
+	Sound*	m_pSound{ nullptr };
+	GLuint	m_iSoundNum;
 
 };
 
