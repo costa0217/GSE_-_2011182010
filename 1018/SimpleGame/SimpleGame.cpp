@@ -24,6 +24,8 @@ CSceneMgr*	g_SceneManager = NULL;
 DWORD dwTime = 0;
 DWORD dwPreTime = 0;
 float fTime = 33.f;	//한프레임 시간(밀리세컨드 1초 = 1000밀리초)
+
+GLvoid MousePosition(int x, int y);
 void RenderScene(void)
 {
 	float fDivide = 1 / 255.f;
@@ -47,8 +49,12 @@ void MouseInput(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
 	{
 		g_SceneManager->CreateCharacter(x - WINCX * 0.5f, WINCY * 0.5f - y);
-		//g_SceneManager->pushObject(OBJ_CHARACTER, x - WINCX * 0.5f, WINCY * 0.5f - y, 0);
 	}
+	else if (button == GLUT_RIGHT_BUTTON && state == GLUT_UP)
+	{
+		g_SceneManager->m_bClick = false;
+	}
+
 }
 
 void KeyInput(unsigned char key, int x, int y)
@@ -72,6 +78,11 @@ GLvoid TimerFunction(int value)
 	glutPostRedisplay();
 
 	dwPreTime = dwTime;
+}
+GLvoid	MousePosition(int x, int y)
+{
+	g_SceneManager->m_fMouseX = x - WINCX * 0.5f;
+	g_SceneManager->m_fMouseY = WINCY * 0.5f - y;
 }
 int main(int argc, char **argv)
 {
@@ -116,6 +127,8 @@ int main(int argc, char **argv)
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyInput);
 	glutMouseFunc(MouseInput);
+	glutPassiveMotionFunc(MousePosition);
+	glutMotionFunc(MousePosition);
 	glutSpecialFunc(SpecialKeyInput);
 
 	glutMainLoop();

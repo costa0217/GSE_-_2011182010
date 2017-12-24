@@ -20,8 +20,7 @@ CCharacter::CCharacter(int iTeamNum, float fX, float fY, float fZ)
 	{
 		m_iSoundNum = m_pSound->CreateSound("./Sound/enemy_create.wav");
 	}
-		m_pSound->PlaySoundW(m_iSoundNum, false, 1.f);
-
+	m_pSound->PlaySoundW(m_iSoundNum, false, 1.f);
 }
 
 CCharacter::~CCharacter()
@@ -42,8 +41,8 @@ int CCharacter::Update(float fTimeDelta)
 	}
 
 
-	if (m_tObjInfo.x - m_tObjInfo.size * 0.5f <= -WINCX * 0.5f || m_tObjInfo.x + m_tObjInfo.size * 0.5f >= WINCX * 0.5f) m_tDir.x *= -1;
-	if (m_tObjInfo.y - m_tObjInfo.size * 0.5f <= -WINCY * 0.5f || m_tObjInfo.y + m_tObjInfo.size * 0.5f >= WINCY * 0.5f) m_tDir.y *= -1;
+	if (m_tObjInfo.x - m_tObjInfo.size * 0.5f <= -220.f|| m_tObjInfo.x + m_tObjInfo.size * 0.5f >= 220.f) m_tDir.x *= -1;
+	if (m_tObjInfo.y - m_tObjInfo.size * 0.5f <= -271.f || m_tObjInfo.y + m_tObjInfo.size * 0.5f >= 341.f) m_tDir.y *= -1;
 
 
 	m_tObjInfo.x += m_tDir.x * m_fSpeed * fTimeDelta;

@@ -4,11 +4,13 @@
 
 CBullet::CBullet()
 {
+	m_fParticleAccTime = 0;
 }
 
 
 CBullet::~CBullet()
 {
+	m_fParticleAccTime = 0;
 }
 
 
@@ -38,7 +40,7 @@ void CBullet::Render(Renderer * pRenderer)
 
 	pRenderer->DrawParticle(m_tObjInfo.x, m_tObjInfo.y, m_tObjInfo.z,
 		m_tObjInfo.size * 2.f,
-		1.f, 1.f, 1.f, 1.f, -m_tDir.x, -m_tDir.y, iImage, m_fParticleAccTime);
+		1.f, 1.f, 1.f, 1.f, -m_tDir.x, -m_tDir.y, iImage, m_fParticleAccTime, m_tObjInfo.lvType * 0.1f);
 
 	pRenderer->DrawSolidRect(m_tObjInfo.x, m_tObjInfo.y, m_tObjInfo.z,
 		m_tObjInfo.size,

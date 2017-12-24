@@ -19,6 +19,10 @@ CSceneMgr::~CSceneMgr()
 //			m_ObjArray[i][j] = nullptr;
 //		}
 //	}
+	delete m_pExBarSys;
+	m_pExBarSys = nullptr;
+	delete m_pLightning;
+	m_pLightning = nullptr;
 }
 
 void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNum, CObj * pParent)
@@ -99,15 +103,57 @@ void CSceneMgr::pushObject(OBJ_TYPE eType, float fPosX, float fPosY, int iTeamNu
 
 void CSceneMgr::CreateCharacter(float fPosX, float fPosY)
 {
-	if (fPosY > WINCY * -0.5f && fPosY < 0.f)
+	m_iPresentIconNum = m_pExBarSys->PushIcon(fPosX, fPosY);
+	if (-1 != m_iPresentIconNum)
 	{
-		if (true == m_bSummonAble)
+		m_bClick = true;
+	}
+	else
+	{
+		if (true == m_bClick)
 		{
-			m_fAccSummonTime = 0.f;
-			m_bSummonAble = false;
-			pushObject(OBJ_CHARACTER, fPosX, fPosY, 0);
+			switch (m_iPretIconNum)
+			{
+			case 0:
+				if (fPosY > -271.f && fPosY < 7.f)
+				{
+					pushObject(OBJ_CHARACTER, fPosX, fPosY, 0);
+					m_pExBarSys->ProcessIcon(m_iPretIconNum);
+				}
+				break;
+			case 1:
+				if (fPosY > -271.f && fPosY < 7.f)
+				{
+					pushObject(OBJ_CHARACTER, fPosX, fPosY, 0);
+					m_pExBarSys->ProcessIcon(m_iPretIconNum);
+				}
+				break;
+			case 2:
+				m_pExBarSys->ProcessIcon(m_iPretIconNum);
+				break;
+			case 3:
+				m_pExBarSys->ProcessIcon(m_iPretIconNum);
+				m_pLightning->m_fPosX = fPosX;
+				m_pLightning->m_fPosY = fPosY;
+				m_pLightning->m_bAble = true;
+				break;
+			case 4:
+				//m_pExBarSys->ProcessIcon(m_iPretIconNum);
+				break;
+			}
 		}
-	}	
+		m_bClick = false;
+	}
+	m_iPretIconNum = m_iPresentIconNum;
+	//if (fPosY > WINCY * -0.5f && fPosY < 0.f)
+	//{
+	//	if (true == m_bSummonAble)
+	//	{
+	//		m_fAccSummonTime = 0.f;
+	//		m_bSummonAble = false;
+	//		pushObject(OBJ_CHARACTER, fPosX, fPosY, 0);
+	//	}
+	//}	
 }
 
 void CSceneMgr::CreateEnemy(float fTimeDelta)
@@ -116,7 +162,7 @@ void CSceneMgr::CreateEnemy(float fTimeDelta)
 	if (m_fAccEnemySummonTime > ENEMY_CHARACTE_CREATE_TIME)
 	{
 		m_fAccEnemySummonTime = 0.f;
-		pushObject(OBJ_CHARACTER, float(rand() % WINCX - int(WINCX *0.45f)), float(rand() % int(WINCY *0.45f)), 1);
+		pushObject(OBJ_CHARACTER, float(rand() % WINCX - int(WINCX *0.4f)), float(rand() % int(WINCY *0.4f)), 1);
 	}
 }
 
@@ -281,14 +327,41 @@ void CSceneMgr::Initialize()
 	m_imageNum[IMAGE_BULLET_PARTICLE] = m_pRenderer->CreatePngTexture("./Textures/Particle.png");
 
 	m_imageNum[IMAGE_BACKGROUND] = m_pRenderer->CreatePngTexture("./Textures/background.png");
+	m_imageNum[IMAGE_SNOW] = m_pRenderer->CreatePngTexture("./Textures/snow.png");
 
-	pushObject(OBJ_BULDING, WINCX * 0.f, WINCY * -0.4f, 0);
-	pushObject(OBJ_BULDING, WINCX * 0.32f, WINCY * -0.3f, 0);
-	pushObject(OBJ_BULDING, WINCX * -0.32f, WINCY * -0.3f, 0);
+	m_imageNum[IMAGE_EXBAR] = m_pRenderer->CreatePngTexture("./Textures/ExBar.png");
+	m_imageNum[IMAGE_EXPOINT] = m_pRenderer->CreatePngTexture("./Textures/ExPoint.png");
+	m_imageNum[IMAGE_EX] = m_pRenderer->CreatePngTexture("./Textures/elixer.png");
+	m_imageNum[IMAGE_NUMBER] = m_pRenderer->CreatePngTexture("./Textures/Number.png");
 
-	pushObject(OBJ_BULDING, WINCX * 0.f, WINCY * 0.4f, 1);
-	pushObject(OBJ_BULDING, WINCX * 0.32f, WINCY * 0.3f, 1);
-	pushObject(OBJ_BULDING, WINCX * -0.32f, WINCY * 0.3f, 1);
+	m_pExBarSys = new CExBar;
+	m_pExBarSys->GetImageNum(m_imageNum[IMAGE_EXBAR], m_imageNum[IMAGE_EX], m_imageNum[IMAGE_EXPOINT], m_imageNum[IMAGE_NUMBER]);
+
+
+	GLint wndicon[5];
+	
+	m_imageNum[IMAGE_WND] = m_pRenderer->CreatePngTexture("./Textures/window.png");
+	wndicon[0] = m_imageNum[IMAGE_WNDICON1] = m_pRenderer->CreatePngTexture("./Textures/1.png");
+	wndicon[1] = m_imageNum[IMAGE_WNDICON2] = m_pRenderer->CreatePngTexture("./Textures/2.png");
+	wndicon[2] = m_imageNum[IMAGE_WNDICON3] = m_pRenderer->CreatePngTexture("./Textures/3.png");
+	wndicon[3] = m_imageNum[IMAGE_WNDICON4] = m_pRenderer->CreatePngTexture("./Textures/4.png");
+	wndicon[4] = m_imageNum[IMAGE_WNDICON5] = m_pRenderer->CreatePngTexture("./Textures/5.png");
+	m_pExBarSys->GetWndImgNum(wndicon, m_imageNum[IMAGE_WND]);
+
+	m_imageNum[IMAGE_RellyPoint] = m_pRenderer->CreatePngTexture("./Textures/RellyPoint.png");
+
+	m_imageNum[IMAGE_Lightning] = m_pRenderer->CreatePngTexture("./Textures/Lightning.png");
+
+	m_pLightning = new CLightning;
+	m_pLightning->m_iImage = m_imageNum[IMAGE_Lightning];
+
+	pushObject(OBJ_BULDING, 0.f, -237.f, 0);
+	pushObject(OBJ_BULDING, -132.f, -160.f, 0);
+	pushObject(OBJ_BULDING, 132.f, -160.f, 0);
+
+	pushObject(OBJ_BULDING, 0.f, 297.f, 1);
+	pushObject(OBJ_BULDING, -132.f, 230.f, 1);
+	pushObject(OBJ_BULDING, 132.f, 230.f, 1);
 
 	m_pSound = new Sound;
 	m_iSoundNum = m_pSound->CreateSound("./Sound/BGM.wav");
@@ -296,19 +369,20 @@ void CSceneMgr::Initialize()
 }
 int CSceneMgr::Update(float fDeltaTime)
 {
-
-
-	if (false == m_bSummonAble)
-	{
-		m_fAccSummonTime += fDeltaTime;
-		if (m_fAccSummonTime > CHARACTE_CREATE_TIME)
-		{
-			m_bSummonAble = true;
-			m_fAccSummonTime = 0.f;
-		}
-	}	
+	//if (false == m_bSummonAble)
+	//{
+	//	m_fAccSummonTime += fDeltaTime;
+	//	if (m_fAccSummonTime > CHARACTE_CREATE_TIME)
+	//	{
+	//		m_bSummonAble = true;
+	//		m_fAccSummonTime = 0.f;
+	//	}
+	//}	
+	m_fAccWeatherTime += fDeltaTime;
 	CreateEnemy(fDeltaTime);
 
+	m_pExBarSys->Update(fDeltaTime);
+	m_pLightning->Update(fDeltaTime);
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
@@ -347,7 +421,12 @@ void CSceneMgr::RenderObjects(Renderer * pRenderer)
 		1.f, 1.f, 1.f, 1.f,
 		m_imageNum[IMAGE_BACKGROUND],
 		0.9f);
-
+	m_pRenderer->DrawParticleClimate(0.f, 0.f, 0.f
+		, 1.f,
+		1.f, 1.f, 1.f, 1.f,
+		sinf(m_fAccWeatherTime * 0.5f),
+		abs(cosf(m_fAccWeatherTime) + 1.5f) * -0.4f
+		, m_imageNum[IMAGE_SNOW], m_fAccWeatherTime, 0.05f);
 	//m_pRenderer->DrawText(WINCX * -0.45f, WINCY * 0.45f, GLUT_BITMAP_9_BY_15, 1.f, 1.f, 0.f, "Kingdom Royale");
 
 
@@ -360,4 +439,17 @@ void CSceneMgr::RenderObjects(Renderer * pRenderer)
 			(*iter)->Render(m_pRenderer);
 		}
 	}
+
+	if (m_bClick)
+	{
+		m_pRenderer->DrawTexturedRectXY(m_fMouseX, m_fMouseY, 0.f,
+			30.f,
+			20.f,
+			1.f, 1.f, 1.f, 1.f,
+			m_imageNum[IMAGE_RellyPoint],
+			0.01f);
+	}
+	m_pLightning->Render(m_pRenderer);
+	m_pExBarSys->Render(m_pRenderer);
+
 }
